@@ -19,7 +19,7 @@ const grotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "YELLOW FRIDAY 2025 | מחסני השוק",
   description:
-    "כל 90+ המבצעים של Yellow Friday 2025 בדף אחד סופר מהיר, מותאם לעומסים ונטען ישירות מ-Cloudinary.",
+    "לא יכולתי שלא לשתף אתכם... מבצעי Yellow Friday 2025 של מחסני השוק במקום אחד – גללו, שתפו ותחסכו יחד.",
   icons: {
     icon: "/FAV.png",
   },
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "YELLOW FRIDAY 2025 | מחסני השוק",
     description:
-      "דף הנחיתה הרשמי – טעינה מיידית, תמונות אופטימליות ויציבות ב-300K מבקרים ביום.",
+      "לא יכולתי שלא לשתף אתכם... מבצעי Yellow Friday 2025 של מחסני השוק במקום אחד – גללו, שתפו ותחסכו יחד.",
     type: "website",
     locale: "he_IL",
     images: [
@@ -48,7 +48,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "YELLOW FRIDAY 2025 | מחסני השוק",
-    description: "האירוע הצהוב הגדול של השנה.",
+    description:
+      "לא יכולתי שלא לשתף אתכם... מבצעי Yellow Friday 2025 של מחסני השוק במקום אחד – גללו, שתפו ותחסכו יחד.",
     images: [
       "https://res.cloudinary.com/dggk53pzv/image/upload/v1764250917/cover_landing_ctmomi.png",
     ],
