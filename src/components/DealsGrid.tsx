@@ -149,8 +149,31 @@ export function DealsGrid() {
               <div
                 key={placeholder}
                 aria-hidden
-                className="block aspect-square w-full animate-pulse bg-gradient-to-br from-[#f4f4f4] via-[#ececec] to-[#dfdfdf]"
-              />
+                className="flex aspect-square w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-[#f4f4f4] via-[#ececec] to-[#dfdfdf]"
+              >
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  className="animate-spin text-[#c6c6c6]"
+                  aria-hidden
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    fill="none"
+                    strokeDasharray="60"
+                    strokeDashoffset="20"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <span className="text-xs font-semibold text-[#777]">
+                  טוען מבצע נוסף...
+                </span>
+              </div>
             ))
           : null}
       </div>
