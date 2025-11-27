@@ -5,20 +5,21 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { deals } from "@/data/deals";
 import { buildCloudinaryUrl } from "@/lib/cloudinary";
 
-const INITIAL_EAGER = 8;
-const BATCH_SIZE = 8;
+const INITIAL_EAGER = 12;
+const BATCH_SIZE = 10;
 const COVER_IMAGE_URL =
   "https://res.cloudinary.com/dggk53pzv/image/upload/f_auto,q_auto:good,w_1280,c_limit,dpr_auto/v1764250917/cover_landing_ctmomi";
 const SKELETON_PLACEHOLDERS = Array.from({ length: BATCH_SIZE }).map(
   (_, index) => `skeleton-${index}`,
 );
-const PREFETCH_DELAY_MS = 120;
+const PREFETCH_DELAY_MS = 160;
 
 export function DealsGrid() {
   const [visibleCount, setVisibleCount] = useState(() =>
     Math.min(deals.length, INITIAL_EAGER + BATCH_SIZE)
   );
   const sentinelRef = useRef<HTMLDivElement | null>(null);
+  const fallbackTimeoutRef = useRef<number | null>(null);
 
   const hasMore = visibleCount < deals.length;
   const visibleDeals = useMemo(
@@ -44,7 +45,7 @@ export function DealsGrid() {
           );
         }
       },
-      { rootMargin: "0px 0px 240px 0px" }
+      { rootMargin: "0px 0px 600px 0px" }
     );
 
     observer.observe(sentinel);
@@ -52,16 +53,38 @@ export function DealsGrid() {
   }, [hasMore]);
 
   useEffect(() => {
+    if (!hasMore) {
+      return;
+    }
+
+    if (fallbackTimeoutRef.current) {
+      window.clearTimeout(fallbackTimeoutRef.current);
+    }
+
+    fallbackTimeoutRef.current = window.setTimeout(() => {
+      setVisibleCount((prev) =>
+        Math.min(prev + Math.ceil(BATCH_SIZE / 2), deals.length)
+      );
+    }, 4000);
+
+    return () => {
+      if (fallbackTimeoutRef.current) {
+        window.clearTimeout(fallbackTimeoutRef.current);
+      }
+    };
+  }, [hasMore, visibleCount]);
+
+  useEffect(() => {
     if (typeof window === "undefined") {
       return;
     }
 
-    let isCancelled = false;
+    const controller = new AbortController();
     const urls = deals.map((deal) => buildCloudinaryUrl(deal.filename));
     let index = 0;
 
     const prefetchNext = () => {
-      if (isCancelled || index >= urls.length) {
+      if (controller.signal.aborted || index >= urls.length) {
         return;
       }
 
@@ -81,9 +104,7 @@ export function DealsGrid() {
 
     prefetchNext();
 
-    return () => {
-      isCancelled = true;
-    };
+    return () => controller.abort();
   }, []);
 
   const skeletonNeeded = hasMore;
