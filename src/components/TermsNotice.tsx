@@ -4,7 +4,7 @@ const TERMS_PDF_PATH = encodeURI(
 
 export function TermsNotice() {
   return (
-    <section className="bg-white px-5 pb-36 pt-6 text-xs leading-relaxed text-[#222] sm:text-sm sm:pb-40">
+    <section className="bg-white px-5 pb-32 pt-6 text-sm leading-relaxed text-[#111] sm:text-base sm:pb-36">
       <p>
         המבצעים תקפים ביום אחד בלבד-28.11.2025-עד גמר המלאי. חלק מהמוצרים
         בהגבלת רכישה ובקנייה מעל 99 ₪. ייתכנו הבדלים במחיר המקורי בין הסניפים.
