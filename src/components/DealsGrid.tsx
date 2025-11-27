@@ -8,7 +8,7 @@ import { buildCloudinaryUrl } from "@/lib/cloudinary";
 const INITIAL_EAGER = 8;
 const BATCH_SIZE = 12;
 const COVER_IMAGE_URL =
-  "https://res.cloudinary.com/dggk53pzv/image/upload/f_auto,q_auto,w_auto:100,c_limit,dpr_auto/v1764250917/cover_landing_ctmomi";
+  "https://res.cloudinary.com/dggk53pzv/image/upload/f_auto,q_auto:good,w_1280,c_limit,dpr_auto/v1764250917/cover_landing_ctmomi";
 const SKELETON_PLACEHOLDERS = Array.from({ length: BATCH_SIZE }).map(
   (_, index) => `skeleton-${index}`,
 );
