@@ -6,12 +6,13 @@ import { deals } from "@/data/deals";
 import { buildCloudinaryUrl } from "@/lib/cloudinary";
 
 const INITIAL_EAGER = 8;
-const BATCH_SIZE = 12;
+const BATCH_SIZE = 8;
 const COVER_IMAGE_URL =
   "https://res.cloudinary.com/dggk53pzv/image/upload/f_auto,q_auto:good,w_1280,c_limit,dpr_auto/v1764250917/cover_landing_ctmomi";
 const SKELETON_PLACEHOLDERS = Array.from({ length: BATCH_SIZE }).map(
   (_, index) => `skeleton-${index}`,
 );
+const PREFETCH_DELAY_MS = 120;
 
 export function DealsGrid() {
   const [visibleCount, setVisibleCount] = useState(() =>
@@ -49,6 +50,41 @@ export function DealsGrid() {
     observer.observe(sentinel);
     return () => observer.disconnect();
   }, [hasMore]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    let isCancelled = false;
+    const urls = deals.map((deal) => buildCloudinaryUrl(deal.filename));
+    let index = 0;
+
+    const prefetchNext = () => {
+      if (isCancelled || index >= urls.length) {
+        return;
+      }
+
+      const preloadImage = new window.Image();
+      preloadImage.decoding = "async";
+      preloadImage.loading = "eager";
+      preloadImage.src = urls[index];
+
+      const handleDone = () => {
+        index += 1;
+        window.setTimeout(prefetchNext, PREFETCH_DELAY_MS);
+      };
+
+      preloadImage.onload = handleDone;
+      preloadImage.onerror = handleDone;
+    };
+
+    prefetchNext();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
 
   const skeletonNeeded = hasMore;
 

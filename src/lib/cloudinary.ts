@@ -1,5 +1,5 @@
 const CLOUDINARY_BASE =
-  "https://res.cloudinary.com/dggk53pzv/image/upload/f_auto,q_auto:eco,w_720,c_limit,dpr_auto/";
+  "https://res.cloudinary.com/dggk53pzv/image/upload/f_auto,q_auto:low,fl_progressive:steep,w_640,c_limit,dpr_auto/";
 
 const trimTrailingSlash = (value: string) => value.replace(/\/+$/, "");
 const trimLeadingSlash = (value: string) => value.replace(/^\/+/, "");
