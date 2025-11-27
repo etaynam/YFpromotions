@@ -6,12 +6,9 @@ import { useCallback, useState } from "react";
 const SHARE_TEXT =
   "לא יכולתי שלא לשתף אתכם… יש מבצעים מטורפים במחסני השוק, באמת משהו שלא רואים כל השנה 👇";
 const SHARE_URL = "https://YF2025.m-shuk.net";
-const SHARE_THUMBNAIL_URL =
-  "https://res.cloudinary.com/dggk53pzv/image/upload/v1764250917/cover_landing_ctmomi.png";
 const STATUS_TIMEOUT = 4000;
 
-const createWhatsappMessage = () =>
-  `${SHARE_TEXT}\n\n${SHARE_URL}\nתמונה מקדימה: ${SHARE_THUMBNAIL_URL}`;
+const createWhatsappMessage = () => `${SHARE_TEXT}\n\n${SHARE_URL}`;
 
 export function ShareBanner() {
   const [status, setStatus] = useState<string | null>(null);
